@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: middleware-java
+  labels:
+    app: middleware
+spec:
+  selector:
+    matchLabels:
+      app: middleware
+  template:
+    metadata:
+      labels:
+        app: middleware
+        version: java
+    spec:
+      containers:
+      - name: middleware-java
+        image: aymencherif/analyseur-sentiment-middleware-java:latest
+        env:
+        - name:  SA_LOGIC_API_URL
+          value:  "http://model" 
+        ports:
+        - containerPort: 8080

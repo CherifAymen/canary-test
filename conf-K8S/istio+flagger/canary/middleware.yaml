@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: middleware
+  labels:
+    app: middleware
+spec:
+  selector:
+    matchLabels:
+      app: middleware
+  template:
+    metadata:
+      labels:
+        app: middleware
+        version: go            #version go
+#        version: java         #version java 
+    spec:
+      containers:
+      - name: middleware
+        image: aymencherif/analyseur-sentiment-middleware-go:latest      #version go
+        env:                                                             #version go
+        - name:  URL                                                     #version go
+          value:  "http://model"                                         #version go 
+        ports:                                                           #version go      
+        - containerPort: 8080                                            #version go
+#        image: aymencherif/analyseur-sentiment-middleware-java:latest   #version java
+#        env:                                                            #version java
+#        - name:  SA_LOGIC_API_URL                                       #version java
+#          value:  "http://model"                                        #version java 
+#        ports:                                                          #version java
+#        - containerPort: 8080                                           #version java
