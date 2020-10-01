@@ -75,7 +75,8 @@ func sentimentHandler(w http.ResponseWriter, r *http.Request) {
 
 		var sentiment Sentiment
 		json.Unmarshal(body, &sentiment)
-		sentiment.Version = "go-version"
+		sentiment.Polarity += 100
+		sentiment.Version = "go"
 		json.NewEncoder(w).Encode(sentiment)
 	}
 }
