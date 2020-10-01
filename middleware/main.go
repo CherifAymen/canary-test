@@ -4,9 +4,10 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
-	"math/rand"
+	"io"
 	"io/ioutil"
 	"log"
+	"math/rand"
 	"net/http"
 	"os"
 	"time"
@@ -50,10 +51,9 @@ func sentimentHandler(w http.ResponseWriter, r *http.Request) {
 		panic(err)
 	}
 	if len(reqBody) != 0 {
-	
+
 		rand.Seed(time.Now().UnixNano())
 		n := rand.Intn(10)
-
 
 		if n == 0 {
 			code = http.StatusInternalServerError
@@ -61,7 +61,7 @@ func sentimentHandler(w http.ResponseWriter, r *http.Request) {
 			w.WriteHeader(code)
 			io.WriteString(w, msg)
 		} else {
-			
+
 			//var jsonStr = []byte(`{"title":"Buy cheese and bread for breakfast."}`)
 			req, err := http.NewRequest("POST", fullURL, bytes.NewBuffer(reqBody))
 			req.Header.Set("Content-Type", "application/json")
