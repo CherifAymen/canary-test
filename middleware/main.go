@@ -56,8 +56,8 @@ func sentimentHandler(w http.ResponseWriter, r *http.Request) {
 		n := rand.Intn(10)
 
 		if n == 0 {
-			code = http.StatusInternalServerError
-			msg = "ERROR: Something, somewhere, went wrong!\n"
+			code := http.StatusInternalServerError
+			msg := "ERROR: Something, somewhere, went wrong!\n"
 			w.WriteHeader(code)
 			io.WriteString(w, msg)
 		} else {
