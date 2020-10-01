@@ -9,6 +9,6 @@ while true; do \
     curl  http://$ADDR/sentiment  -H "Content-type: application/json" \
     -d '{"sentence": "I love microservices"}' \
     -s -w "\t Time: %{time_total}s \t Status: %{http_code} \n" -o -; \
-    sleep 1;\
+    sleep 2;\
     done
 
