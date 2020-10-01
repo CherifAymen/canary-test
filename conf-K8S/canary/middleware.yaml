@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: middleware
+  labels:
+    app: middleware
+spec:
+  selector:
+    matchLabels:
+      app: middleware
+  template:
+    metadata:
+      labels:
+        app: middleware
+        version: go            
+    spec:
+      containers:
+      - name: middleware
+        image: aymencherif/analyseur-sentiment-middleware-go:latest     
+        env:                                                            
+        - name:  URL                                                    
+          value:  "http://model"                                        
+        ports:                                                           
+        - containerPort: 8080                                           
