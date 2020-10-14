@@ -40,7 +40,7 @@ jobs:
         run: |
           cd conf-K8S/canary
           OUTPUT=$(sed -n 19p middleware.yaml | tr  -dc '[0-9]+')
-          sed -i "s/$OUTPUT/${{ github.run_number }}/g" middleware.yaml 
+          sed  "s/$OUTPUT/${{ github.run_number }}/g" middleware.yaml 
 
       - name: Azure Kubernetes set context
         uses: Azure/aks-set-context@v1
