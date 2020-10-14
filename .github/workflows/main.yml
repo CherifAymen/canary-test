@@ -1,3 +1,4 @@
+# This is a basic workflow to help you get started with Actions
 
 name: Testing Canary release on a AKS using Github Actions
 
@@ -25,22 +26,16 @@ jobs:
       - name: docker build
         run: |
           cd middleware
-          docker build -t analyseur-sentiment-middleware-go:${{ github.run_number }} .
+          docker build -t analyseur-sentiment-middleware-go:latest .
   
       - name: docker login
         run: docker login --username '${{secrets.DOCKER_LOGIN}}' --password '${{secrets.DOCKER_PASSWORD}}'
 
       - name: tag docker image
-        run: docker tag analyseur-sentiment-middleware-go:${{ github.run_number }}  '${{secrets.DOCKER_LOGIN}}'/analyseur-sentiment-middleware-go:${{ github.run_number }} 
+        run: docker tag analyseur-sentiment-middleware-go:latest  '${{secrets.DOCKER_LOGIN}}'/analyseur-sentiment-middleware-go:latest 
 
       - name: push docker image
-        run: docker push '${{secrets.DOCKER_LOGIN}}'/analyseur-sentiment-middleware-go:${{ github.run_number }}
-
-      - name: change yaml 
-        run: |
-          cd conf-K8S/canary
-          OUTPUT=$(sed -n 19p middleware.yaml | tr  -dc '[0-9]+')
-          sed  "s/$OUTPUT/${{ github.run_number }}/g" middleware.yaml 
+        run: docker push '${{secrets.DOCKER_LOGIN}}'/analyseur-sentiment-middleware-go:latest
 
       - name: Azure Kubernetes set context
         uses: Azure/aks-set-context@v1
@@ -75,7 +70,7 @@ jobs:
           manifests: |
             conf-K8S/canary/middleware.yaml
           # Fully qualified resource URL of the image(s) to be used for substitutions on the manifest files Example: contosodemo.azurecr.io/helloworld:test
-          images: '${{secrets.DOCKER_LOGIN}}/analyseur-sentiment-middleware-go:${{ github.run_number }}'
+          images: '${{secrets.DOCKER_LOGIN}}/analyseur-sentiment-middleware-go:latest'
           # Name of a docker-registry secret that has already been set up within the cluster. Each of these secret names are added under imagePullSecrets field for the workloads found in the input manifest files
           imagepullsecrets: docker-image-pull-secret
           # deploy/promote/reject
