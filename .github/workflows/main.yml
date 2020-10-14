@@ -36,6 +36,12 @@ jobs:
       - name: push docker image
         run: docker push '${{secrets.DOCKER_LOGIN}}'/analyseur-sentiment-middleware-go:${{ github.run_number }}
 
+      - name: docker build
+        run: |
+          cd ../conf-K8S/canary
+          OUTPUT=$(sed -n 19p middleware.yaml | tr  -dc '[0-9]+')
+          sed -i "s/$OUTPUT/${{ github.run_number }}/g" middleware.yaml 
+
       - name: Azure Kubernetes set context
         uses: Azure/aks-set-context@v1
         with:
