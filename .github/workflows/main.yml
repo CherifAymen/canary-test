@@ -1,4 +1,3 @@
-# This is a basic workflow to help you get started with Actions
 
 name: Testing Canary release on a AKS using Github Actions
 
