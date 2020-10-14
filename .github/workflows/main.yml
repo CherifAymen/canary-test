@@ -32,10 +32,10 @@ jobs:
         run: docker login --username '${{secrets.DOCKER_LOGIN}}' --password '${{secrets.DOCKER_PASSWORD}}'
 
       - name: tag docker image
-        run: docker tag analyseur-sentiment-middleware-go:${{ github.sha }}  '${{secrets.DOCKER_LOGIN}}'/analyseur-sentiment-middleware-go:${{ github.sha }} 
+        run: docker tag analyseur-sentiment-middleware-go:${{ github.run_number }}  '${{secrets.DOCKER_LOGIN}}'/analyseur-sentiment-middleware-go:${{ github.run_number }} 
 
       - name: push docker image
-        run: docker push '${{secrets.DOCKER_LOGIN}}'/analyseur-sentiment-middleware-go:${{ github.sha }}
+        run: docker push '${{secrets.DOCKER_LOGIN}}'/analyseur-sentiment-middleware-go:${{ github.run_number }}
 
       - name: Azure Kubernetes set context
         uses: Azure/aks-set-context@v1
@@ -70,7 +70,7 @@ jobs:
           manifests: |
             conf-K8S/canary/middleware.yaml
           # Fully qualified resource URL of the image(s) to be used for substitutions on the manifest files Example: contosodemo.azurecr.io/helloworld:test
-          images: '${{secrets.DOCKER_LOGIN}}/analyseur-sentiment-middleware-go:${{ github.sha }}'
+          images: '${{secrets.DOCKER_LOGIN}}/analyseur-sentiment-middleware-go:${{ github.run_number }}'
           # Name of a docker-registry secret that has already been set up within the cluster. Each of these secret names are added under imagePullSecrets field for the workloads found in the input manifest files
           imagepullsecrets: docker-image-pull-secret
           # deploy/promote/reject
