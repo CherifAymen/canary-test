@@ -36,9 +36,9 @@ jobs:
       - name: push docker image
         run: docker push '${{secrets.DOCKER_LOGIN}}'/analyseur-sentiment-middleware-go:${{ github.run_number }}
 
-      - name: docker build
+      - name: change yaml 
         run: |
-          cd ../conf-K8S/canary
+          cd conf-K8S/canary
           OUTPUT=$(sed -n 19p middleware.yaml | tr  -dc '[0-9]+')
           sed -i "s/$OUTPUT/${{ github.run_number }}/g" middleware.yaml 
 
