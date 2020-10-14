@@ -32,7 +32,7 @@ jobs:
         run: docker login --username '${{secrets.DOCKER_LOGIN}}' --password '${{secrets.DOCKER_PASSWORD}}'
 
       - name: tag docker image
-        run: docker tag analyseur-sentiment-middleware-go:1.0.0  '${{secrets.DOCKER_LOGIN}}'/analyseur-sentiment-middleware-go:${{ github.sha }} 
+        run: docker tag analyseur-sentiment-middleware-go:{{ github.sha }}  '${{secrets.DOCKER_LOGIN}}'/analyseur-sentiment-middleware-go:${{ github.sha }} 
 
       - name: push docker image
         run: docker push '${{secrets.DOCKER_LOGIN}}'/analyseur-sentiment-middleware-go:${{ github.sha }}
