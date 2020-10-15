@@ -1,4 +1,3 @@
-/*
 package main
 
 import (
@@ -90,9 +89,7 @@ func sentimentHandler(w http.ResponseWriter, r *http.Request) {
 			var sentiment Sentiment
 			json.Unmarshal(body, &sentiment)
 
-			sentiment.Version = "go-version"
-
-			sentiment.Polarity += 100
+			sentiment.Version = "go-version-with-errors"
 
 			json.NewEncoder(w).Encode(sentiment)
 		}
@@ -110,12 +107,11 @@ func main() {
 	handleRequests()
 }
 
-*/
-
 /****************************************************************************************************
 ******************************************   Original ***********************************************
 /****************************************************************************************************/
 
+/*
 package main
 
 import (
@@ -215,3 +211,4 @@ func HealthHandler(w http.ResponseWriter, r *http.Request) {
 func main() {
 	handleRequests()
 }
+*/
